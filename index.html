@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BLANC VISAS | AI-Powered Visa Services</title>
+  <meta name="description" content="Get expert visa guidance powered by AI. We analyze your profile and recommend the perfect visa path for your journey.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-content">
+      <a href="#" class="logo">
+       <img src="images/blanc.png" alt="Blanc Visas logo" class="logo-img">
+      </a>
+      <nav class="nav-desktop">
+        <a href="#destinations" class="nav-link">Destinations</a>
+        <a href="#how-it-works" class="nav-link">How It Works</a>
+        <a href="#why-choose-us" class="nav-link">Why Us</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button class="btn btn-primary" onclick="openModal()">Get Started</button>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <nav class="mobile-nav">
+        <a href="#destinations" class="mobile-nav-link" onclick="closeMobileMenu()">Destinations</a>
+        <a href="#how-it-works" class="mobile-nav-link" onclick="closeMobileMenu()">How It Works</a>
+        <a href="#why-choose-us" class="mobile-nav-link" onclick="closeMobileMenu()">Why Us</a>
+        <a href="#contact" class="mobile-nav-link" onclick="closeMobileMenu()">Contact</a>
+        <button class="btn btn-primary btn-full" onclick="openModal(); closeMobileMenu()">Get Started</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="container hero-content">
+      <h1 class="hero-title">
+        Your Visa Journey,<br>
+        <span class="text-gradient">Simplified by BLANC</span>
+      </h1>
+      <p class="hero-subtitle">
+        Get expert guidance powered by artificial intelligence. We analyze your profile and recommend the perfect visa path for your journey.
+      </p>
+      <div class="search-bar">
+        <div class="search-input-wrapper">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="M21 21l-4.35-4.35"></path>
+          </svg>
+          <input type="text" class="search-input" placeholder="Where do you want to go?" id="searchInput">
+        </div>
+        <button class="btn btn-primary search-btn" onclick="handleSearch()">
+          Find My Visa
+          <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"></path>
+          </svg>
+        </button>
+      </div>
+      <p class="hero-trust">Serving 150+ destinations worldwide • Fast processing • 98.7% success rate</p>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-dot"></span>
+          <span>10,000+ Visas Processed</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-dot"></span>
+          <span>15+ Years Experience</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-dot"></span>
+          <span>24/7 Support Available</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Destinations Section -->
+  <section id="destinations" class="section destinations">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Popular Destinations</h2>
+        <p class="section-subtitle">Apply for visas to the world's most sought-after countries</p>
+      </div>
+      <div class="destinations-grid">
+        <div class="destination-card">
+          <div class="destination-image" style="background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%), url('https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=400') center/cover;"></div>
+          <div class="destination-content">
+            <div class="destination-header">
+              <h3 class="destination-name">United Kingdom</h3>
+              <span class="destination-flag">🇬🇧</span>
+            </div>
+            <p class="destination-processing">Processing: 7-15 working days</p>
+            <div class="destination-footer">
+              <span class="destination-price">From $150</span>
+              <button class="btn btn-outline btn-small" onclick="openModal()">Apply Now</button>
+            </div>
+          </div>
+        </div>
+        <div class="destination-card">
+          <div class="destination-image" style="background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%), url('https://images.unsplash.com/photo-1485738422979-f5c462d49f74?w=400') center/cover;"></div>
+          <div class="destination-content">
+            <div class="destination-header">
+              <h3 class="destination-name">United States</h3>
+              <span class="destination-flag">🇺🇸</span>
+            </div>
+            <p class="destination-processing">Processing: 10-21 working days</p>
+            <div class="destination-footer">
+              <span class="destination-price">From $185</span>
+              <button class="btn btn-outline btn-small" onclick="openModal()">Apply Now</button>
+            </div>
+          </div>
+        </div>
+        <div class="destination-card">
+          <div class="destination-image" style="background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%), url('https://images.unsplash.com/photo-1517935706615-2717063c2225?w=400') center/cover;"></div>
+          <div class="destination-content">
+            <div class="destination-header">
+              <h3 class="destination-name">Canada</h3>
+              <span class="destination-flag">🇨🇦</span>
+            </div>
+            <p class="destination-processing">Processing: 7-14 working days</p>
+            <div class="destination-footer">
+              <span class="destination-price">From $120</span>
+              <button class="btn btn-outline btn-small" onclick="openModal()">Apply Now</button>
+            </div>
+          </div>
+        </div>
+        <div class="destination-card">
+          <div class="destination-image" style="background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%), url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=400') center/cover;"></div>
+          <div class="destination-content">
+            <div class="destination-header">
+              <h3 class="destination-name">Schengen Area</h3>
+              <span class="destination-flag">🇪🇺</span>
+            </div>
+            <p class="destination-processing">Processing: 10-15 working days</p>
+            <div class="destination-footer">
+              <span class="destination-price">From $90</span>
+              <button class="btn btn-outline btn-small" onclick="openModal()">Apply Now</button>
+            </div>
+          </div>
+        </div>
+        <div class="destination-card">
+          <div class="destination-image" style="background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%), url('https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=400') center/cover;"></div>
+          <div class="destination-content">
+            <div class="destination-header">
+              <h3 class="destination-name">Turkey</h3>
+              <span class="destination-flag">🇹🇷</span>
+            </div>
+            <p class="destination-processing">Processing: 1-3 working days</p>
+            <div class="destination-footer">
+              <span class="destination-price">From $50</span>
+              <button class="btn btn-outline btn-small" onclick="openModal()">Apply Now</button>
+            </div>
+          </div>
+        </div>
+        <div class="destination-card">
+          <div class="destination-image" style="background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%), url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400') center/cover;"></div>
+          <div class="destination-content">
+            <div class="destination-header">
+              <h3 class="destination-name">Dubai</h3>
+              <span class="destination-flag">🇦🇪</span>
+            </div>
+            <p class="destination-processing">Processing: 3-5 working days</p>
+            <div class="destination-footer">
+              <span class="destination-price">From $80</span>
+              <button class="btn btn-outline btn-small" onclick="openModal()">Apply Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  </section>
+
+  <!-- AI Consultation Section -->
+  <section class="section ai-consultation">
+    <div class="container">
+      <div class="ai-grid">
+        <div class="ai-content">
+          <div class="ai-badge">
+            <svg class="ai-badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3z"></path>
+            </svg>
+           
+          </div>
+          <h2 class="ai-title">Get Your Personalized Visa Recommendation</h2>
+          <p class="ai-subtitle">Let's help you analyze your profile, travel history, and destination to recommend the best visa type with the highest approval probability.</p>
+          <ul class="ai-features">
+            <li class="ai-feature">
+              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 6L9 17l-5-5"></path>
+              </svg>
+              <span>Personalized visa type recommendations</span>
+            </li>
+            <li class="ai-feature">
+              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 6L9 17l-5-5"></path>
+              </svg>
+              <span>Success rate prediction for your profile</span>
+            </li>
+            <li class="ai-feature">
+              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 6L9 17l-5-5"></path>
+              </svg>
+              <span>Document checklist tailored to your case</span>
+            </li>
+            <li class="ai-feature">
+              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 6L9 17l-5-5"></path>
+              </svg>
+              <span>Processing time estimates</span>
+            </li>
+          </ul>
+          <a 
+            href="https://wa.me/2348108137021?text=Hello%20I%20would%20like%20to%20start%20a%20free%20consultation" 
+            target="_blank" 
+            class="btn btn-primary btn-large"
+            >
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3z"></path>
+           </svg>
+            Start Free Consultation via WhatsApp
+           </a>
+        </div>
+        
+    <div class="ai-visual">
+        <div class="ai-video-wrapper">
+         <video
+      class="ai-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+    >
+      <source src="videos/travel-showcase.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+
+    <!-- Optional overlay text -->
+    <div class="ai-video-overlay">
+      <h3>Travel the World with Confidence</h3>
+      <p>Premium visa guidance • Fast • Reliable</p>
+    </div>
+  </div>
+</div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section id="how-it-works" class="section how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">How It Works</h2>
+        <p class="section-subtitle">Get your visa in 4 simple steps with AI-powered guidance</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card">
+          <span class="step-number">01</span>
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="M21 21l-4.35-4.35"></path>
+            </svg>
+          </div>
+          <h3 class="step-title">Choose Your Destination</h3>
+          <p class="step-desc">Select your destination country and visa type. Our AI will analyze your profile.</p>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step-card">
+          <span class="step-number">02</span>
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+          </div>
+          <h3 class="step-title">Upload Documents</h3>
+          <p class="step-desc">Upload your documents securely. AI checks for completeness and accuracy.</p>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step-card">
+          <span class="step-number">03</span>
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <h3 class="step-title">Expert Review</h3>
+          <p class="step-desc">Our visa experts review your application and ensure everything is perfect.</p>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step-card">
+          <span class="step-number">04</span>
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 2L11 13"></path>
+              <path d="M22 2l-7 20-4-9-9-4 20-7z"></path>
+            </svg>
+          </div>
+          <h3 class="step-title">Track & Receive</h3>
+          <p class="step-desc">Track your application in real-time and receive your approved visa.</p>
+        </div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-value">98.7%</span>
+          <span class="stat-label">Success Rate</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value">24-48hrs</span>
+          <span class="stat-label">Average Response Time</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value">10,000+</span>
+          <span class="stat-label">Visas Processed</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us Section -->
+  <section id="why-choose-us" class="section why-choose-us">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Why Choose BLANC VISAS</h2>
+        <p class="section-subtitle">Trusted by thousands for reliable, efficient, and expert visa services</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+          </div>
+          <h3 class="feature-title">Secure & Encrypted</h3>
+          <p class="feature-desc">Bank-level 256-bit encryption protects all your sensitive documents and personal data.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <h3 class="feature-title">Fast Processing</h3>
+          <p class="feature-desc">Expedited handling with real-time tracking and status updates throughout the process.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <h3 class="feature-title">Expert Team</h3>
+          <p class="feature-desc">15+ years of combined experience with visa applications across 150+ countries.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="8" r="7"></circle>
+              <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+            </svg>
+          </div>
+          <h3 class="feature-title">98.7% Success Rate</h3>
+          <p class="feature-desc">Industry-leading approval rate backed by meticulous application preparation.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+          </div>
+          <h3 class="feature-title">24/7 Support</h3>
+          <p class="feature-desc">Round-the-clock assistance via chat, email, or phone whenever you need help.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+          </div>
+          <h3 class="feature-title">150+ Countries</h3>
+          <p class="feature-desc">Comprehensive visa services for destinations worldwide from one platform.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section id="contact" class="section cta-section">
+    <div class="container">
+      <div class="cta-card">
+        <h2 class="cta-title">Ready to Start Your Visa Journey?</h2>
+        <p class="cta-subtitle">Join thousands who've successfully obtained their visas with our AI-powered platform</p>
+        <div class="cta-buttons">
+          <button class="btn btn-primary btn-large" onclick="openModal()">Apply Now</button>
+          <a href="https://wa.me/2341234567890?text=Hi!%20I%20need%20help%20with%20my%20visa%20application." target="_blank" class="btn btn-whatsapp btn-large">
+            <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            Chat on WhatsApp
+          </a>
+        </div>
+        <div class="cta-trust">
+          <div class="trust-item">
+            <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+            <span>Money-back guarantee</span>
+          </div>
+          <div class="trust-item">
+            <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <span>256-bit encryption</span>
+          </div>
+          <div class="trust-item">
+            <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            <span>24/7 support</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="logo">
+            <span class="logo-blanc">BLANC</span>
+            <span class="logo-visas">VISAS</span>
+          </a>
+          <p class="footer-tagline">AI-powered visa services for seamless global travel. Your journey starts here.</p>
+          <div class="footer-social">
+            <a href="#" class="social-link" aria-label="Twitter">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4 class="footer-heading">Services</h4>
+          <ul>
+            <li><a href="#">Tourist Visa</a></li>
+            <li><a href="#">Business Visa</a></li>
+            <li><a href="#">Student Visa</a></li>
+            <li><a href="#">Work Visa</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4 class="footer-heading">Destinations</h4>
+          <ul>
+            <li><a href="#destinations">United Kingdom</a></li>
+            <li><a href="#destinations">United States</a></li>
+            <li><a href="#destinations">Canada</a></li>
+            <li><a href="#destinations">Schengen Area</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4 class="footer-heading">Contact</h4>
+          <ul>
+            <li><a href="mailto:info@blancvisas.com">info@blancvisas.com</a></li>
+            <li><a href="tel:+2341234567890">+234 123 456 7890</a></li>
+            <li><a href="#">Lagos, Nigeria</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 BLANC VISAS. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+<!-- Application Modal -->
+<div class="modal-overlay" id="modal" onclick="closeModalOnOverlay(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()" aria-label="Close modal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+
+    <div class="modal-header">
+      <h2 class="modal-title">Start Your Visa Application</h2>
+      <p class="modal-subtitle">Fill in your details and we'll guide you through the process</p>
+    </div>
+
+    <!-- Formspree Form -->
+    <form 
+      class="modal-form" 
+      id="applicationForm" 
+      action="https://formspree.io/f/xbdonpba" 
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="fullName">Full Name *</label>
+          <input type="text" id="fullName" name="fullName" required placeholder="As shown on passport">
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" required placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number *</label>
+          <input type="tel" id="phone" name="phone" required placeholder="+234 xxx xxx xxxx">
+        </div>
+        <div class="form-group">
+          <label for="nationality">Nationality *</label>
+          <select id="nationality" name="nationality" required>
+            <option value="">Select nationality</option>
+            <option value="NG">Nigeria</option>
+            <option value="GH">Ghana</option>
+            <option value="KE">Kenya</option>
+            <option value="ZA">South Africa</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="destination">Destination Country *</label>
+          <select id="destination" name="destination" required>
+            <option value="">Select destination</option>
+            <option value="UK">United Kingdom</option>
+            <option value="US">United States</option>
+            <option value="CA">Canada</option>
+            <option value="EU">Schengen Area</option>
+            <option value="TR">Turkey</option>
+            <option value="AE">Dubai (UAE)</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="travelDate">Preferred Travel Date</label>
+          <input type="date" id="travelDate" name="travelDate">
+        </div>
+        <div class="form-group">
+          <label for="purpose">Purpose of Travel *</label>
+          <select id="purpose" name="purpose" required>
+            <option value="">Select purpose</option>
+            <option value="tourism">Tourism</option>
+            <option value="business">Business</option>
+            <option value="education">Education</option>
+            <option value="work">Work</option>
+            <option value="medical">Medical</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="passportNumber">Passport Number *</label>
+          <input type="text" id="passportNumber" name="passportNumber" required placeholder="A12345678">
+        </div>
+      </div>
+  <button type="submit" class="btn btn-primary btn-full btn-large">Submit Application</button>
+</form>
+
+    <!-- Success Message -->
+    <div class="modal-success" id="successMessage" style="display: none;">
+      <div class="success-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+      </div>
+      <h3>Application Submitted!</h3>
+      <p>Thank you for your application. Our team will review it and contact you within 24-48 hours.</p>
+      <button class="btn btn-primary" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Formspree AJAX Script -->
+<script>
+const form = document.getElementById('applicationForm');
+
+form.addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const formData = new FormData(form);
+
+  const response = await fetch(form.action, {
+    method: form.method,
+    body: formData,
+    headers: { 'Accept': 'application/json' }
+  });
+
+  if (response.ok) {
+    form.style.display = 'none';
+    document.getElementById('successMessage').style.display = 'block';
+    form.reset();
+  } else {
+    alert("Oops! There was a problem submitting your form.");
+  }
+});
+</script>
+
+  <!-- Chatbot -->
+  <button class="chatbot-toggle" id="chatbotToggle" onclick="toggleChatbot()" aria-label="Open chat">
+    <svg class="chat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+    </svg>
+    <svg class="close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
+    </svg>
+  </button>
+
+  <div class="chatbot" id="chatbot">
+    <div class="chatbot-header">
+      <div class="chatbot-avatar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3z"></path>
+        </svg>
+      </div>
+      <div>
+        <h4 class="chatbot-title">BLANC AI Assistant</h4>
+        <p class="chatbot-status">Online • Typically replies instantly</p>
+      </div>
+    </div>
+    <div class="chatbot-messages" id="chatbotMessages">
+      <div class="chat-message bot">
+        <p>Hi! I’m Blanc AI. Your Visa Assistant 🤖
+
+          Please type in one of the options below by typing it exactly as shown:
+
+          1️⃣ Visa types
+          2️⃣ Processing times
+          3️⃣ Required documents
+          4️⃣ Your services
+
+          This helps me give you accurate information faster.
+        </p>
+      </div>
+    </div>
+    <div class="chatbot-whatsapp">
+      <a href="https://wa.me/2341234567890?text=Hi!%20I%20need%20help%20with%20my%20visa%20application." target="_blank" class="btn btn-whatsapp btn-full">
+        <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        Chat on WhatsApp
+      </a>
+    </div>
+    <div class="chatbot-input">
+      <input type="text" id="chatInput" placeholder="Type your message..." onkeydown="handleChatKeydown(event)">
+      <button class="chat-send-btn" onclick="sendChatMessage()" aria-label="Send message">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
