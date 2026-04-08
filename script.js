@@ -10,8 +10,8 @@ const visaCountries = [
 ];
 
 // Local image paths - create these folders in your project
-const bgUrl = (code) => `./images/backgrounds/${code}.avif`;  // or .avif, .png
-const flagUrl = (code) => `./images/flags/${code}.png`;
+const bgUrl = (code) => `images/backgrounds/${code}.avif`;  // or .avif, .png
+const flagUrl = (code) => `images/flags/${code}.png`;
 
 // Filter state
 let activeFilters = {
