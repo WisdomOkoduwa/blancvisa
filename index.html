@@ -3,1076 +3,897 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BLANC VISAS | AI-Powered Visa Services</title>
-  <meta name="description" content="Get expert visa guidance powered by AI. We analyze your profile and recommend the perfect visa path for your journey.">
+  <title>Blanc Visa – Visas On Time, Guaranteed</title>
+  <meta name="description" content="Get your visa on time, guaranteed. Explore visa requirements for 100+ countries.">
   <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Modal component styles -->
+  <style>
+    /* ── Question blocks ── */
+    .modal-step-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin: 0 0 1.25rem;
+      color: #111;
+    }
+    .q-block {
+      margin-bottom: 1.25rem;
+    }
+    .q-block.conditional {
+      padding: .875rem 1rem;
+      background: #f8f8f8;
+      border-radius: 10px;
+      border-left: 3px solid #e5e7eb;
+    }
+    .q-label {
+      display: block;
+      font-size: .8rem;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: .5rem;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+    }
+    .q-hint {
+      font-weight: 400;
+      color: #9ca3af;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    /* ── Inputs ── */
+    .modal-input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: .6rem .875rem;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: .875rem;
+      color: #111;
+      background: #fff;
+      transition: border-color .15s;
+      outline: none;
+    }
+    .modal-input:focus { border-color: #111; }
+    .modal-textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: .6rem .875rem;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: .875rem;
+      color: #111;
+      background: #fff;
+      resize: vertical;
+      min-height: 80px;
+      outline: none;
+      font-family: inherit;
+      transition: border-color .15s;
+    }
+    .modal-textarea:focus { border-color: #111; }
+
+    /* ── Radio pills ── */
+    .radio-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+    }
+    .radio-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .45rem .875rem;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 99px;
+      font-size: .8125rem;
+      font-weight: 500;
+      color: #374151;
+      cursor: pointer;
+      user-select: none;
+      transition: all .15s;
+      background: #fff;
+    }
+    .radio-pill:hover { border-color: #111; color: #111; }
+    .radio-pill.active {
+      background: #111;
+      border-color: #111;
+      color: #fff;
+    }
+    .radio-pill input[type="radio"] { display: none; }
+
+    /* ── Checkbox pills ── */
+    .check-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+    }
+    .check-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .45rem .875rem;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 10px;
+      font-size: .8125rem;
+      font-weight: 500;
+      color: #374151;
+      cursor: pointer;
+      user-select: none;
+      transition: all .15s;
+      background: #fff;
+    }
+    .check-pill:hover { border-color: #111; color: #111; }
+    .check-pill.active {
+      background: #111;
+      border-color: #111;
+      color: #fff;
+    }
+    .check-pill input[type="checkbox"] { display: none; }
+
+    /* ── Info box ── */
+    .info-box {
+      display: flex;
+      align-items: flex-start;
+      gap: .75rem;
+      padding: .875rem 1rem;
+      background: #fffbeb;
+      border: 1.5px solid #fbbf24;
+      border-radius: 10px;
+      font-size: .875rem;
+      color: #92400e;
+      line-height: 1.5;
+    }
+    .info-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: .1rem; }
+
+    /* ── AI Decision step ── */
+    .ai-decision {
+      text-align: center;
+      padding: 2rem 1.5rem;
+    }
+    .ai-decision h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: .75rem 0 .625rem;
+      color: #111;
+    }
+    .ai-decision p {
+      font-size: .9rem;
+      color: #4b5563;
+      line-height: 1.6;
+      max-width: 380px;
+      margin: 0 auto 1.5rem;
+    }
+    .ai-badge {
+      display: inline-block;
+      padding: .35rem .875rem;
+      border-radius: 99px;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      margin-bottom: .5rem;
+    }
+    .ai-badge-green { background: #dcfce7; color: #166534; }
+    .ai-badge-yellow { background: #fef9c3; color: #854d0e; }
+    .ai-badge-red { background: #fee2e2; color: #991b1b; }
+
+    .ai-price-card {
+      background: #f9fafb;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    .ai-price-label { font-size: .7rem; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: #6b7280; }
+    .ai-price-value { font-size: 2rem; font-weight: 800; color: #111; line-height: 1.2; margin: .25rem 0; }
+    .ai-price-sub { font-size: .8rem; color: #6b7280; }
+
+    .ai-decision-actions {
+      display: flex;
+      gap: .75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ── Consultant button ── */
+    .btn-consult {
+      padding: .65rem 1.5rem;
+      background: #111;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: .875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity .15s;
+    }
+    .btn-consult:hover { opacity: .85; }
+
+    /* ── Review cards ── */
+    .review-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .75rem;
+    }
+    @media (max-width: 480px) {
+      .review-cards { grid-template-columns: 1fr; }
+    }
+    .review-card {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: .875rem 1rem;
+    }
+    .review-card h4 {
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: #9ca3af;
+      font-weight: 700;
+      margin: 0 0 .5rem;
+    }
+    .review-card p {
+      font-size: .8125rem;
+      color: #374151;
+      margin: .2rem 0;
+      line-height: 1.4;
+    }
+    .review-card strong { color: #111; }
+
+    /* ── Success box ── */
+    .success-box {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+    }
+    .success-box h2 { font-size: 1.25rem; margin: .875rem 0 .5rem; color: #111; }
+    .success-box p { font-size: .9rem; color: #4b5563; line-height: 1.6; }
+    .success-check {
+      width: 52px; height: 52px;
+      background: #16a34a;
+      color: #fff;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    /* Filter dropdowns */
+    .filter-dropdown {
+      position: relative;
+    }
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      min-width: 180px;
+      z-index: 100;
+      margin-top: 8px;
+      border: 1px solid #e5e7eb;
+      overflow: hidden;
+    }
+    .dropdown-item {
+      padding: 10px 16px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: background 0.15s;
+    }
+    .dropdown-item:hover {
+      background: #f3f4f6;
+    }
+    .dropdown-item.active {
+      background: #111;
+      color: white;
+    }
+
+    /* Chatbot Widget Styles */
+    .chatbot-widget {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 1001;
+      font-family: 'DM Sans', system-ui, sans-serif;
+    }
+    .chatbot-toggle {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #111;
+      color: white;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .chatbot-toggle:hover {
+      transform: scale(1.05);
+      background: #333;
+    }
+    .chatbot-panel {
+      position: absolute;
+      bottom: 72px;
+      right: 0;
+      width: 380px;
+      max-width: calc(100vw - 48px);
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid #e5e7eb;
+      animation: slideUp 0.2s ease;
+    }
+    .chatbot-panel.hidden {
+      display: none;
+    }
+    .chatbot-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      background: #111;
+      color: white;
+    }
+    .chatbot-header h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0;
+    }
+    .chatbot-header button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      line-height: 1;
+      opacity: 0.7;
+    }
+    .chatbot-header button:hover {
+      opacity: 1;
+    }
+    .chatbot-messages {
+      height: 400px;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: #f9fafb;
+    }
+    .message {
+      max-width: 85%;
+      padding: 10px 14px;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+    .message.bot {
+      background: white;
+      color: #111;
+      align-self: flex-start;
+      border: 1px solid #e5e7eb;
+      border-bottom-left-radius: 4px;
+    }
+    .message.user {
+      background: #111;
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+    .message.bot a {
+      color: #111;
+      font-weight: 600;
+      text-decoration: underline;
+    }
+    .whatsapp-btn-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #25D366;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      margin-top: 8px;
+      transition: opacity 0.2s;
+    }
+    .whatsapp-btn-inline:hover {
+      opacity: 0.9;
+    }
+    .chatbot-input-area {
+      display: flex;
+      padding: 12px;
+      border-top: 1px solid #e5e7eb;
+      background: white;
+      gap: 8px;
+    }
+    .chatbot-input-area input {
+      flex: 1;
+      padding: 10px 12px;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-family: inherit;
+      outline: none;
+    }
+    .chatbot-input-area input:focus {
+      border-color: #111;
+    }
+    .chatbot-input-area button {
+      padding: 8px 16px;
+      background: #111;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+    .chatbot-input-area button:hover {
+      background: #333;
+    }
+    .chatbot-suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 12px;
+      border-top: 1px solid #e5e7eb;
+      background: white;
+    }
+    .suggestion-chip {
+      padding: 6px 12px;
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      color: #374151;
+    }
+    .suggestion-chip:hover {
+      background: #111;
+      color: white;
+      border-color: #111;
+    }
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- Header -->
+
+  <!-- HEADER -->
   <header class="header">
-    <div class="container header-content">
-      <a href="#" class="logo">
-       <img src="images/blanc.svg" alt="Blanc Visas logo" class="logo-img">
-      </a>
-      <nav class="nav-desktop">
-        <a href="#destinations" class="nav-link">Destinations</a>
-        <a href="#how-it-works" class="nav-link">How It Works</a>
-        <a href="#why-choose-us" class="nav-link">Why Us</a>
-        <a href="#contact" class="nav-link">Contact</a>
-      </nav>
-      <div class="header-actions">
-        <button class="btn btn-primary" onclick="openModal()">Get Started</button>
-        <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">
-          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
-          </svg>
-        </button>
+    <div class="header-left">
+      <span class="logo"><img src="/images/logos/blanc_velvet_logo10.svg" alt="Blanc Visa" style="height: 100px; width: auto;"></span>
+      <div class="header-divider"></div>
+      <div class="guarantee">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        <span>Visas On Time<br><u>Guaranteed</u></span>
       </div>
-    </div>
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-      <nav class="mobile-nav">
-        <a href="#destinations" class="mobile-nav-link" onclick="closeMobileMenu()">Destinations</a>
-        <a href="#how-it-works" class="mobile-nav-link" onclick="closeMobileMenu()">How It Works</a>
-        <a href="#why-choose-us" class="mobile-nav-link" onclick="closeMobileMenu()">Why Us</a>
-        <a href="#contact" class="mobile-nav-link" onclick="closeMobileMenu()">Contact</a>
-        <button class="btn btn-primary btn-full" onclick="openModal(); closeMobileMenu()">Get Started</button>
-      </nav>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-glow"></div>
-    <div class="container hero-content">
-      <h1 class="hero-title">
-        Your Visa Journey,<br>
-        <span class="text-gradient">Simplified by BLANC</span>
-      </h1>
-      <p class="hero-subtitle">
-        Get expert guidance powered by artificial intelligence. We analyze your profile and recommend the perfect visa path for your journey.
-      </p>
-      <div class="search-bar">
-        <div class="search-input-wrapper">
-          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="8"></circle>
-            <path d="M21 21l-4.35-4.35"></path>
-          </svg>
-          <input type="text" class="search-input" placeholder="Where do you want to go?" id="searchInput">
-        </div>
-        <button class="btn btn-primary search-btn" onclick="handleSearch()">
-          Find My Visa
-          <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 12h14M12 5l7 7-7 7"></path>
-          </svg>
-        </button>
+  <!-- FILTER BAR -->
+  <div class="filter-wrap">
+    <div class="filter-bar">
+      <div class="filter-item filter-dropdown" data-filter="delivery">
+        <div><p class="filter-label">Visa delivery:</p><p class="filter-value" id="filter-delivery-value">Any Time <span class="chevron">▾</span></p></div>
       </div>
-      <p class="hero-trust">Serving 150+ destinations worldwide • Fast processing • 98.7% success rate</p>
-      <div class="hero-stats">
-        <div class="stat-item">
-          <span class="stat-dot"></span>
-          <span>10,000+ Visas Processed</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat-item">
-          <span class="stat-dot"></span>
-          <span>15+ Years Experience</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat-item">
-          <span class="stat-dot"></span>
-          <span>24/7 Support Available</span>
-        </div>
+      <div class="filter-item filter-dropdown" data-filter="type">
+        <div><p class="filter-label">Type:</p><p class="filter-value" id="filter-type-value">All Visa Types <span class="chevron">▾</span></p></div>
       </div>
-    </div>
-  </section>
-
-  <!-- Destinations Section -->
-  <section id="destinations" class="section destinations">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Popular Destinations</h2>
-        <p class="section-subtitle">Apply for visas to the world's most sought-after countries</p>
+      <div class="filter-item filter-dropdown" data-filter="documents">
+        <div><p class="filter-label">Documents:</p><p class="filter-value" id="filter-documents-value">Any Documents <span class="chevron">▾</span></p></div>
       </div>
-      <div class="destinations-grid">
-        <div class="destination-card">
-          <div class="destination-image" style="background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%), url('https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=400') center/cover;"></div>
-          <div class="destination-content">
-            <div class="destination-header">
-              <h3 class="destination-name">United Kingdom</h3>
-              <span class="destination-flag">🇬🇧</span>
-            </div>
-            <p class="destination-processing">Processing: 7-15 working days</p>
-            <div class="destination-footer">
-              <span class="destination-price">From $150</span>
-              <button class="btn btn-outline btn-small" onclick="openModal()">Apply Now</button>
-            </div>
-          </div>
-        </div>
-        <div class="destination-card">
-          <div class="destination-image" style="background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%), url('https://images.unsplash.com/photo-1485738422979-f5c462d49f74?w=400') center/cover;"></div>
-          <div class="destination-content">
-            <div class="destination-header">
-              <h3 class="destination-name">United States</h3>
-              <span class="destination-flag">🇺🇸</span>
-            </div>
-            <p class="destination-processing">Processing: 10-21 working days</p>
-            <div class="destination-footer">
-              <span class="destination-price">From $185</span>
-              <button class="btn btn-outline btn-small" onclick="openModal()">Apply Now</button>
-            </div>
-          </div>
-        </div>
-        <div class="destination-card">
-          <div class="destination-image" style="background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%), url('https://images.unsplash.com/photo-1517935706615-2717063c2225?w=400') center/cover;"></div>
-          <div class="destination-content">
-            <div class="destination-header">
-              <h3 class="destination-name">Canada</h3>
-              <span class="destination-flag">🇨🇦</span>
-            </div>
-            <p class="destination-processing">Processing: 7-14 working days</p>
-            <div class="destination-footer">
-              <span class="destination-price">From $120</span>
-              <button class="btn btn-outline btn-small" onclick="openModal()">Apply Now</button>
-            </div>
-          </div>
-        </div>
-        <div class="destination-card">
-          <div class="destination-image" style="background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%), url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=400') center/cover;"></div>
-          <div class="destination-content">
-            <div class="destination-header">
-              <h3 class="destination-name">Schengen Area</h3>
-              <span class="destination-flag">🇪🇺</span>
-            </div>
-            <p class="destination-processing">Processing: 10-15 working days</p>
-            <div class="destination-footer">
-              <span class="destination-price">From $90</span>
-              <button class="btn btn-outline btn-small" onclick="openModal()">Apply Now</button>
-            </div>
-          </div>
-        </div>
-        <div class="destination-card">
-          <div class="destination-image" style="background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%), url('https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=400') center/cover;"></div>
-          <div class="destination-content">
-            <div class="destination-header">
-              <h3 class="destination-name">Turkey</h3>
-              <span class="destination-flag">🇹🇷</span>
-            </div>
-            <p class="destination-processing">Processing: 1-3 working days</p>
-            <div class="destination-footer">
-              <span class="destination-price">From $50</span>
-              <button class="btn btn-outline btn-small" onclick="openModal()">Apply Now</button>
-            </div>
-          </div>
-        </div>
-        <div class="destination-card">
-          <div class="destination-image" style="background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%), url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400') center/cover;"></div>
-          <div class="destination-content">
-            <div class="destination-header">
-              <h3 class="destination-name">Dubai</h3>
-              <span class="destination-flag">🇦🇪</span>
-            </div>
-            <p class="destination-processing">Processing: 3-5 working days</p>
-            <div class="destination-footer">
-              <span class="destination-price">From $80</span>
-              <button class="btn btn-outline btn-small" onclick="openModal()">Apply Now</button>
-            </div>
-          </div>
-        </div>
+      <div class="filter-item filter-dropdown" data-filter="holidays">
+        <div><p class="filter-label">Holidays:</p><p class="filter-value" id="filter-holidays-value">Select Dates <span class="chevron">▾</span></p></div>
       </div>
-  
-    </div>
-  </section>
-
-  <!-- AI Consultation Section -->
-  <section class="section ai-consultation">
-    <div class="container">
-      <div class="ai-grid">
-        <div class="ai-content">
-          <div class="ai-badge">
-            <svg class="ai-badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3z"></path>
-            </svg>
-           
-          </div>
-          <h2 class="ai-title">Get Your Personalized Visa Recommendation</h2>
-          <p class="ai-subtitle">Let's help you analyze your profile, travel history, and destination to recommend the best visa type with the highest approval probability.</p>
-          <ul class="ai-features">
-            <li class="ai-feature">
-              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M20 6L9 17l-5-5"></path>
-              </svg>
-              <span>Personalized visa type recommendations</span>
-            </li>
-            <li class="ai-feature">
-              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M20 6L9 17l-5-5"></path>
-              </svg>
-              <span>Success rate prediction for your profile</span>
-            </li>
-            <li class="ai-feature">
-              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M20 6L9 17l-5-5"></path>
-              </svg>
-              <span>Document checklist tailored to your case</span>
-            </li>
-            <li class="ai-feature">
-              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M20 6L9 17l-5-5"></path>
-              </svg>
-              <span>Processing time estimates</span>
-            </li>
-          </ul>
-          <a 
-            href="https://wa.me/2348108137021?text=Hello%20I%20would%20like%20to%20start%20a%20free%20consultation" 
-            target="_blank" 
-            class="btn btn-primary btn-large"
-            >
-            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3z"></path>
-           </svg>
-            Start Free Consultation via WhatsApp
-           </a>
-        </div>
-        
-    <div class="ai-visual">
-        <div class="ai-video-wrapper">
-         <video
-      class="ai-video"
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="auto"
-    >
-      <source src="videos/travel-showcase.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
-
-    <!-- Optional overlay text -->
-    <div class="ai-video-overlay">
-      <h3>Travel the World with Confidence</h3>
-      <p>Premium visa guidance • Fast • Reliable</p>
     </div>
   </div>
-</div>
 
-      </div>
+  <!-- VISA REQUIRED SECTION -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Visa Required</h2>
+      <div class="card-grid" id="visa-grid"></div>
     </div>
   </section>
 
-  <!-- How It Works Section -->
-  <section id="how-it-works" class="section how-it-works">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">How It Works</h2>
-        <p class="section-subtitle">Get your visa in 4 simple steps with AI-powered guidance</p>
-      </div>
-      <div class="steps-grid">
-        <div class="step-card">
-          <span class="step-number">01</span>
-          <div class="step-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="11" cy="11" r="8"></circle>
-              <path d="M21 21l-4.35-4.35"></path>
-            </svg>
-          </div>
-          <h3 class="step-title">Choose Your Destination</h3>
-          <p class="step-desc">Select your destination country and visa type. Our AI will analyze your profile.</p>
-        </div>
-        <div class="step-connector"></div>
-        <div class="step-card">
-          <span class="step-number">02</span>
-          <div class="step-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="17 8 12 3 7 8"></polyline>
-              <line x1="12" y1="3" x2="12" y2="15"></line>
-            </svg>
-          </div>
-          <h3 class="step-title">Upload Documents</h3>
-          <p class="step-desc">Upload your documents securely. AI checks for completeness and accuracy.</p>
-        </div>
-        <div class="step-connector"></div>
-        <div class="step-card">
-          <span class="step-number">03</span>
-          <div class="step-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-              <polyline points="22 4 12 14.01 9 11.01"></polyline>
-            </svg>
-          </div>
-          <h3 class="step-title">Expert Review</h3>
-          <p class="step-desc">Our visa experts review your application and ensure everything is perfect.</p>
-        </div>
-        <div class="step-connector"></div>
-        <div class="step-card">
-          <span class="step-number">04</span>
-          <div class="step-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M22 2L11 13"></path>
-              <path d="M22 2l-7 20-4-9-9-4 20-7z"></path>
-            </svg>
-          </div>
-          <h3 class="step-title">Track & Receive</h3>
-          <p class="step-desc">Track your application in real-time and receive your approved visa.</p>
-        </div>
-      </div>
-      <div class="stats-grid">
-        <div class="stat-card">
-          <span class="stat-value">98.7%</span>
-          <span class="stat-label">Success Rate</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-value">24-48hrs</span>
-          <span class="stat-label">Average Response Time</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-value">10,000+</span>
-          <span class="stat-label">Visas Processed</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Why Choose Us Section -->
-  <section id="why-choose-us" class="section why-choose-us">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Why Choose BLANC VISAS</h2>
-        <p class="section-subtitle">Trusted by thousands for reliable, efficient, and expert visa services</p>
-      </div>
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-            </svg>
-          </div>
-          <h3 class="feature-title">Secure & Encrypted</h3>
-          <p class="feature-desc">Bank-level 256-bit encryption protects all your sensitive documents and personal data.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"></circle>
-              <polyline points="12 6 12 12 16 14"></polyline>
-            </svg>
-          </div>
-          <h3 class="feature-title">Fast Processing</h3>
-          <p class="feature-desc">Expedited handling with real-time tracking and status updates throughout the process.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-              <circle cx="9" cy="7" r="4"></circle>
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-            </svg>
-          </div>
-          <h3 class="feature-title">Expert Team</h3>
-          <p class="feature-desc">15+ years of combined experience with visa applications across 150+ countries.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="8" r="7"></circle>
-              <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
-            </svg>
-          </div>
-          <h3 class="feature-title">98.7% Success Rate</h3>
-          <p class="feature-desc">Industry-leading approval rate backed by meticulous application preparation.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path>
-            </svg>
-          </div>
-          <h3 class="feature-title">24/7 Support</h3>
-          <p class="feature-desc">Round-the-clock assistance via chat, email, or phone whenever you need help.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="2" y1="12" x2="22" y2="12"></line>
-              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-            </svg>
-          </div>
-          <h3 class="feature-title">150+ Countries</h3>
-          <p class="feature-desc">Comprehensive visa services for destinations worldwide from one platform.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA Section -->
-  <section id="contact" class="section cta-section">
-    <div class="container">
-      <div class="cta-card">
-        <h2 class="cta-title">Ready to Start Your Visa Journey?</h2>
-        <p class="cta-subtitle">Join thousands who've successfully obtained their visas with our AI-powered platform</p>
-        <div class="cta-buttons">
-          <button class="btn btn-primary btn-large" onclick="openModal()">Apply Now</button>
-          <a href="https://wa.me/2341234567890?text=Hi!%20I%20need%20help%20with%20my%20visa%20application." target="_blank" class="btn btn-whatsapp btn-large">
-            <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-            </svg>
-            Chat on WhatsApp
-          </a>
-        </div>
-        <div class="cta-trust">
-          <div class="trust-item">
-            <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-            </svg>
-            <span>Money-back guarantee</span>
-          </div>
-          <div class="trust-item">
-            <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-            </svg>
-            <span>256-bit encryption</span>
-          </div>
-          <div class="trust-item">
-            <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path>
-            </svg>
-            <span>24/7 support</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
       <div class="footer-grid">
-        <div class="footer-brand">
-          <a href="#" class="logo">
-            <span class="logo-blanc">BLANC</span>
-            <span class="logo-visas">VISAS</span>
-          </a>
-          <p class="footer-tagline">AI-powered visa services for seamless global travel. Your journey starts here.</p>
-          <div class="footer-social">
-            <a href="#" class="social-link" aria-label="Twitter">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
-            </a>
-            <a href="#" class="social-link" aria-label="Instagram">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-            </a>
-            <a href="#" class="social-link" aria-label="LinkedIn">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-            </a>
+        <div>
+          <h2 class="footer-logo">Blanc Visa</h2>
+          <p class="footer-tagline">Visas On Time, Guaranteed.</p>
+          <div class="footer-socials">
+            <a href="#" aria-label="Twitter">𝕏</a>
+            <a href="#" aria-label="Instagram">📷</a>
+            <a href="#" aria-label="LinkedIn">in</a>
           </div>
         </div>
-        <div class="footer-links">
-          <h4 class="footer-heading">Services</h4>
-          <ul>
-            <li><a href="#">Tourist Visa</a></li>
-            <li><a href="#">Business Visa</a></li>
-            <li><a href="#">Student Visa</a></li>
-            <li><a href="#">Work Visa</a></li>
-          </ul>
-        </div>
-        <div class="footer-links">
-          <h4 class="footer-heading">Destinations</h4>
-          <ul>
-            <li><a href="#destinations">United Kingdom</a></li>
-            <li><a href="#destinations">United States</a></li>
-            <li><a href="#destinations">Canada</a></li>
-            <li><a href="#destinations">Schengen Area</a></li>
-          </ul>
-        </div>
-        <div class="footer-links">
-          <h4 class="footer-heading">Contact</h4>
-          <ul>
-            <li><a href="mailto:info@blancvisas.com">info@blancvisas.com</a></li>
-            <li><a href="tel:+2341234567890">+234 123 456 7890</a></li>
-            <li><a href="#">Lagos, Nigeria</a></li>
-          </ul>
-        </div>
+        <div class="footer-col"><h4>Product</h4><a href="#">Explore Visas</a><a href="#">How It Works</a><a href="#">Pricing</a><a href="#">Track Application</a></div>
+        <div class="footer-col"><h4>Company</h4><a href="#">About Us</a><a href="#">Careers</a><a href="#">Press</a><a href="#">Blog</a></div>
+        <div class="footer-col"><h4>Support</h4><a href="#">Help Center</a><a href="#">Contact Us</a><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
       </div>
-      <div class="footer-bottom">
-        <p>&copy; 2026 BLANC VISAS. All rights reserved.</p>
-        <div class="footer-legal">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
-        </div>
-      </div>
+      <div class="footer-bottom"><p>© 2026 Blanc Visa. All rights reserved.</p></div>
     </div>
   </footer>
 
-<!-- Application Modal -->
-<div class="modal-overlay" id="modal" onclick="closeModalOnOverlay(event)">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal()" aria-label="Close modal">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <line x1="18" y1="6" x2="6" y2="18"></line>
-        <line x1="6" y1="6" x2="18" y2="18"></line>
+  <!-- MODAL -->
+  <div class="modal-backdrop hidden" id="modal">
+    <div class="modal-box" id="modal-content" onclick="event.stopPropagation()"></div>
+  </div>
+
+      <!-- CHATBOT WIDGET -->
+  <div class="chatbot-widget" id="chatbot-widget">
+    <button class="chatbot-toggle" id="chatbot-toggle">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
       </svg>
     </button>
-
-    <div class="modal-header">
-      <h2 class="modal-title">Start Your Visa Application</h2>
-      <p class="modal-subtitle">Fill in your details and we'll guide you through the process</p>
-    </div>
-
-    <!-- Formspree Form -->
-    <form 
-      class="modal-form" 
-      id="applicationForm" 
-      action="https://formspree.io/f/xbdonpba" 
-      method="POST"
-      enctype="multipart/form-data"
-    >
-      <div class="form-grid">
-        <div class="form-group">
-          <label for="fullName">Full Name *</label>
-          <input type="text" id="fullName" name="fullName" required placeholder="As shown on passport">
-        </div>
-        <div class="form-group">
-          <label for="email">Email Address *</label>
-          <input type="email" id="email" name="email" required placeholder="your@email.com">
-        </div>
-        <div class="form-group">
-          <label for="phone">Phone Number *</label>
-          <input type="tel" id="phone" name="phone" required placeholder="+234 xxx xxx xxxx">
-        </div>
-        <div class="form-group">
-  <label for="nationality">Nationality *</label>
-  <select id="nationality" name="nationality" required>
-    <option value="">Select nationality</option>
-
-    <option value="AF">Afghanistan</option>
-    <option value="AL">Albania</option>
-    <option value="DZ">Algeria</option>
-    <option value="AD">Andorra</option>
-    <option value="AO">Angola</option>
-    <option value="AG">Antigua and Barbuda</option>
-    <option value="AR">Argentina</option>
-    <option value="AM">Armenia</option>
-    <option value="AU">Australia</option>
-    <option value="AT">Austria</option>
-    <option value="AZ">Azerbaijan</option>
-    <option value="BS">Bahamas</option>
-    <option value="BH">Bahrain</option>
-    <option value="BD">Bangladesh</option>
-    <option value="BB">Barbados</option>
-    <option value="BY">Belarus</option>
-    <option value="BE">Belgium</option>
-    <option value="BZ">Belize</option>
-    <option value="BJ">Benin</option>
-    <option value="BT">Bhutan</option>
-    <option value="BO">Bolivia</option>
-    <option value="BA">Bosnia and Herzegovina</option>
-    <option value="BW">Botswana</option>
-    <option value="BR">Brazil</option>
-    <option value="BN">Brunei</option>
-    <option value="BG">Bulgaria</option>
-    <option value="BF">Burkina Faso</option>
-    <option value="BI">Burundi</option>
-    <option value="KH">Cambodia</option>
-    <option value="CM">Cameroon</option>
-    <option value="CA">Canada</option>
-    <option value="CV">Cape Verde</option>
-    <option value="CF">Central African Republic</option>
-    <option value="TD">Chad</option>
-    <option value="CL">Chile</option>
-    <option value="CN">China</option>
-    <option value="CO">Colombia</option>
-    <option value="KM">Comoros</option>
-    <option value="CG">Congo</option>
-    <option value="CR">Costa Rica</option>
-    <option value="CI">Côte d’Ivoire</option>
-    <option value="HR">Croatia</option>
-    <option value="CU">Cuba</option>
-    <option value="CY">Cyprus</option>
-    <option value="CZ">Czech Republic</option>
-    <option value="CD">Democratic Republic of the Congo</option>
-    <option value="DK">Denmark</option>
-    <option value="DJ">Djibouti</option>
-    <option value="DM">Dominica</option>
-    <option value="DO">Dominican Republic</option>
-    <option value="EC">Ecuador</option>
-    <option value="EG">Egypt</option>
-    <option value="SV">El Salvador</option>
-    <option value="GQ">Equatorial Guinea</option>
-    <option value="ER">Eritrea</option>
-    <option value="EE">Estonia</option>
-    <option value="SZ">Eswatini</option>
-    <option value="ET">Ethiopia</option>
-    <option value="FJ">Fiji</option>
-    <option value="FI">Finland</option>
-    <option value="FR">France</option>
-    <option value="GA">Gabon</option>
-    <option value="GM">Gambia</option>
-    <option value="GE">Georgia</option>
-    <option value="DE">Germany</option>
-    <option value="GH">Ghana</option>
-    <option value="GR">Greece</option>
-    <option value="GD">Grenada</option>
-    <option value="GT">Guatemala</option>
-    <option value="GN">Guinea</option>
-    <option value="GW">Guinea-Bissau</option>
-    <option value="GY">Guyana</option>
-    <option value="HT">Haiti</option>
-    <option value="HN">Honduras</option>
-    <option value="HU">Hungary</option>
-    <option value="IS">Iceland</option>
-    <option value="IN">India</option>
-    <option value="ID">Indonesia</option>
-    <option value="IR">Iran</option>
-    <option value="IQ">Iraq</option>
-    <option value="IE">Ireland</option>
-    <option value="IL">Israel</option>
-    <option value="IT">Italy</option>
-    <option value="JM">Jamaica</option>
-    <option value="JP">Japan</option>
-    <option value="JO">Jordan</option>
-    <option value="KZ">Kazakhstan</option>
-    <option value="KE">Kenya</option>
-    <option value="KI">Kiribati</option>
-    <option value="KW">Kuwait</option>
-    <option value="KG">Kyrgyzstan</option>
-    <option value="LA">Laos</option>
-    <option value="LV">Latvia</option>
-    <option value="LB">Lebanon</option>
-    <option value="LS">Lesotho</option>
-    <option value="LR">Liberia</option>
-    <option value="LY">Libya</option>
-    <option value="LI">Liechtenstein</option>
-    <option value="LT">Lithuania</option>
-    <option value="LU">Luxembourg</option>
-    <option value="MG">Madagascar</option>
-    <option value="MW">Malawi</option>
-    <option value="MY">Malaysia</option>
-    <option value="MV">Maldives</option>
-    <option value="ML">Mali</option>
-    <option value="MT">Malta</option>
-    <option value="MH">Marshall Islands</option>
-    <option value="MR">Mauritania</option>
-    <option value="MU">Mauritius</option>
-    <option value="MX">Mexico</option>
-    <option value="FM">Micronesia</option>
-    <option value="MD">Moldova</option>
-    <option value="MC">Monaco</option>
-    <option value="MN">Mongolia</option>
-    <option value="ME">Montenegro</option>
-    <option value="MA">Morocco</option>
-    <option value="MZ">Mozambique</option>
-    <option value="MM">Myanmar</option>
-    <option value="NA">Namibia</option>
-    <option value="NR">Nauru</option>
-    <option value="NP">Nepal</option>
-    <option value="NL">Netherlands</option>
-    <option value="NZ">New Zealand</option>
-    <option value="NI">Nicaragua</option>
-    <option value="NE">Niger</option>
-    <option value="NG">Nigeria</option>
-    <option value="KP">North Korea</option>
-    <option value="MK">North Macedonia</option>
-    <option value="NO">Norway</option>
-    <option value="OM">Oman</option>
-    <option value="PK">Pakistan</option>
-    <option value="PW">Palau</option>
-    <option value="PA">Panama</option>
-    <option value="PG">Papua New Guinea</option>
-    <option value="PY">Paraguay</option>
-    <option value="PE">Peru</option>
-    <option value="PH">Philippines</option>
-    <option value="PL">Poland</option>
-    <option value="PT">Portugal</option>
-    <option value="QA">Qatar</option>
-    <option value="RO">Romania</option>
-    <option value="RU">Russia</option>
-    <option value="RW">Rwanda</option>
-    <option value="KN">Saint Kitts and Nevis</option>
-    <option value="LC">Saint Lucia</option>
-    <option value="VC">Saint Vincent and the Grenadines</option>
-    <option value="WS">Samoa</option>
-    <option value="SM">San Marino</option>
-    <option value="ST">São Tomé and Príncipe</option>
-    <option value="SA">Saudi Arabia</option>
-    <option value="SN">Senegal</option>
-    <option value="RS">Serbia</option>
-    <option value="SC">Seychelles</option>
-    <option value="SL">Sierra Leone</option>
-    <option value="SG">Singapore</option>
-    <option value="SK">Slovakia</option>
-    <option value="SI">Slovenia</option>
-    <option value="SB">Solomon Islands</option>
-    <option value="SO">Somalia</option>
-    <option value="ZA">South Africa</option>
-    <option value="KR">South Korea</option>
-    <option value="SS">South Sudan</option>
-    <option value="ES">Spain</option>
-    <option value="LK">Sri Lanka</option>
-    <option value="SD">Sudan</option>
-    <option value="SR">Suriname</option>
-    <option value="SE">Sweden</option>
-    <option value="CH">Switzerland</option>
-    <option value="SY">Syria</option>
-    <option value="TW">Taiwan</option>
-    <option value="TJ">Tajikistan</option>
-    <option value="TZ">Tanzania</option>
-    <option value="TH">Thailand</option>
-    <option value="TL">Timor-Leste</option>
-    <option value="TG">Togo</option>
-    <option value="TO">Tonga</option>
-    <option value="TT">Trinidad and Tobago</option>
-    <option value="TN">Tunisia</option>
-    <option value="TR">Turkey</option>
-    <option value="TM">Turkmenistan</option>
-    <option value="TV">Tuvalu</option>
-    <option value="UG">Uganda</option>
-    <option value="UA">Ukraine</option>
-    <option value="AE">United Arab Emirates</option>
-    <option value="GB">United Kingdom</option>
-    <option value="US">United States</option>
-    <option value="UY">Uruguay</option>
-    <option value="UZ">Uzbekistan</option>
-    <option value="VU">Vanuatu</option>
-    <option value="VA">Vatican City</option>
-    <option value="VE">Venezuela</option>
-    <option value="VN">Vietnam</option>
-    <option value="YE">Yemen</option>
-    <option value="ZM">Zambia</option>
-    <option value="ZW">Zimbabwe</option>
-
-  </select>
-</div>
-
-        <div class="form-group">
-          <label for="destination">Destination Country *</label>
-          <select id="destination" name="destination" required>
-            <option value="">Select destination</option>
-            <option value="AF">Afghanistan</option>
-    <option value="AL">Albania</option>
-    <option value="DZ">Algeria</option>
-    <option value="AD">Andorra</option>
-    <option value="AO">Angola</option>
-    <option value="AG">Antigua and Barbuda</option>
-    <option value="AR">Argentina</option>
-    <option value="AM">Armenia</option>
-    <option value="AU">Australia</option>
-    <option value="AT">Austria</option>
-    <option value="AZ">Azerbaijan</option>
-    <option value="BS">Bahamas</option>
-    <option value="BH">Bahrain</option>
-    <option value="BD">Bangladesh</option>
-    <option value="BB">Barbados</option>
-    <option value="BY">Belarus</option>
-    <option value="BE">Belgium</option>
-    <option value="BZ">Belize</option>
-    <option value="BJ">Benin</option>
-    <option value="BT">Bhutan</option>
-    <option value="BO">Bolivia</option>
-    <option value="BA">Bosnia and Herzegovina</option>
-    <option value="BW">Botswana</option>
-    <option value="BR">Brazil</option>
-    <option value="BN">Brunei</option>
-    <option value="BG">Bulgaria</option>
-    <option value="BF">Burkina Faso</option>
-    <option value="BI">Burundi</option>
-    <option value="KH">Cambodia</option>
-    <option value="CM">Cameroon</option>
-    <option value="CA">Canada</option>
-    <option value="CV">Cape Verde</option>
-    <option value="CF">Central African Republic</option>
-    <option value="TD">Chad</option>
-    <option value="CL">Chile</option>
-    <option value="CN">China</option>
-    <option value="CO">Colombia</option>
-    <option value="KM">Comoros</option>
-    <option value="CG">Congo</option>
-    <option value="CR">Costa Rica</option>
-    <option value="CI">Côte d’Ivoire</option>
-    <option value="HR">Croatia</option>
-    <option value="CU">Cuba</option>
-    <option value="CY">Cyprus</option>
-    <option value="CZ">Czech Republic</option>
-    <option value="CD">Democratic Republic of the Congo</option>
-    <option value="DK">Denmark</option>
-    <option value="DJ">Djibouti</option>
-    <option value="DM">Dominica</option>
-    <option value="DO">Dominican Republic</option>
-    <option value="EC">Ecuador</option>
-    <option value="EG">Egypt</option>
-    <option value="SV">El Salvador</option>
-    <option value="GQ">Equatorial Guinea</option>
-    <option value="ER">Eritrea</option>
-    <option value="EE">Estonia</option>
-    <option value="SZ">Eswatini</option>
-    <option value="ET">Ethiopia</option>
-    <option value="FJ">Fiji</option>
-    <option value="FI">Finland</option>
-    <option value="FR">France</option>
-    <option value="GA">Gabon</option>
-    <option value="GM">Gambia</option>
-    <option value="GE">Georgia</option>
-    <option value="DE">Germany</option>
-    <option value="GH">Ghana</option>
-    <option value="GR">Greece</option>
-    <option value="GD">Grenada</option>
-    <option value="GT">Guatemala</option>
-    <option value="GN">Guinea</option>
-    <option value="GW">Guinea-Bissau</option>
-    <option value="GY">Guyana</option>
-    <option value="HT">Haiti</option>
-    <option value="HN">Honduras</option>
-    <option value="HU">Hungary</option>
-    <option value="IS">Iceland</option>
-    <option value="IN">India</option>
-    <option value="ID">Indonesia</option>
-    <option value="IR">Iran</option>
-    <option value="IQ">Iraq</option>
-    <option value="IE">Ireland</option>
-    <option value="IL">Israel</option>
-    <option value="IT">Italy</option>
-    <option value="JM">Jamaica</option>
-    <option value="JP">Japan</option>
-    <option value="JO">Jordan</option>
-    <option value="KZ">Kazakhstan</option>
-    <option value="KE">Kenya</option>
-    <option value="KI">Kiribati</option>
-    <option value="KW">Kuwait</option>
-    <option value="KG">Kyrgyzstan</option>
-    <option value="LA">Laos</option>
-    <option value="LV">Latvia</option>
-    <option value="LB">Lebanon</option>
-    <option value="LS">Lesotho</option>
-    <option value="LR">Liberia</option>
-    <option value="LY">Libya</option>
-    <option value="LI">Liechtenstein</option>
-    <option value="LT">Lithuania</option>
-    <option value="LU">Luxembourg</option>
-    <option value="MG">Madagascar</option>
-    <option value="MW">Malawi</option>
-    <option value="MY">Malaysia</option>
-    <option value="MV">Maldives</option>
-    <option value="ML">Mali</option>
-    <option value="MT">Malta</option>
-    <option value="MH">Marshall Islands</option>
-    <option value="MR">Mauritania</option>
-    <option value="MU">Mauritius</option>
-    <option value="MX">Mexico</option>
-    <option value="FM">Micronesia</option>
-    <option value="MD">Moldova</option>
-    <option value="MC">Monaco</option>
-    <option value="MN">Mongolia</option>
-    <option value="ME">Montenegro</option>
-    <option value="MA">Morocco</option>
-    <option value="MZ">Mozambique</option>
-    <option value="MM">Myanmar</option>
-    <option value="NA">Namibia</option>
-    <option value="NR">Nauru</option>
-    <option value="NP">Nepal</option>
-    <option value="NL">Netherlands</option>
-    <option value="NZ">New Zealand</option>
-    <option value="NI">Nicaragua</option>
-    <option value="NE">Niger</option>
-    <option value="NG">Nigeria</option>
-    <option value="KP">North Korea</option>
-    <option value="MK">North Macedonia</option>
-    <option value="NO">Norway</option>
-    <option value="OM">Oman</option>
-    <option value="PK">Pakistan</option>
-    <option value="PW">Palau</option>
-    <option value="PA">Panama</option>
-    <option value="PG">Papua New Guinea</option>
-    <option value="PY">Paraguay</option>
-    <option value="PE">Peru</option>
-    <option value="PH">Philippines</option>
-    <option value="PL">Poland</option>
-    <option value="PT">Portugal</option>
-    <option value="QA">Qatar</option>
-    <option value="RO">Romania</option>
-    <option value="RU">Russia</option>
-    <option value="RW">Rwanda</option>
-    <option value="KN">Saint Kitts and Nevis</option>
-    <option value="LC">Saint Lucia</option>
-    <option value="VC">Saint Vincent and the Grenadines</option>
-    <option value="WS">Samoa</option>
-    <option value="SM">San Marino</option>
-    <option value="ST">São Tomé and Príncipe</option>
-    <option value="SA">Saudi Arabia</option>
-    <option value="SN">Senegal</option>
-    <option value="RS">Serbia</option>
-    <option value="SC">Seychelles</option>
-    <option value="SL">Sierra Leone</option>
-    <option value="SG">Singapore</option>
-    <option value="SK">Slovakia</option>
-    <option value="SI">Slovenia</option>
-    <option value="SB">Solomon Islands</option>
-    <option value="SO">Somalia</option>
-    <option value="ZA">South Africa</option>
-    <option value="KR">South Korea</option>
-    <option value="SS">South Sudan</option>
-    <option value="ES">Spain</option>
-    <option value="LK">Sri Lanka</option>
-    <option value="SD">Sudan</option>
-    <option value="SR">Suriname</option>
-    <option value="SE">Sweden</option>
-    <option value="CH">Switzerland</option>
-    <option value="SY">Syria</option>
-    <option value="TW">Taiwan</option>
-    <option value="TJ">Tajikistan</option>
-    <option value="TZ">Tanzania</option>
-    <option value="TH">Thailand</option>
-    <option value="TL">Timor-Leste</option>
-    <option value="TG">Togo</option>
-    <option value="TO">Tonga</option>
-    <option value="TT">Trinidad and Tobago</option>
-    <option value="TN">Tunisia</option>
-    <option value="TR">Turkey</option>
-    <option value="TM">Turkmenistan</option>
-    <option value="TV">Tuvalu</option>
-    <option value="UG">Uganda</option>
-    <option value="UA">Ukraine</option>
-    <option value="AE">United Arab Emirates</option>
-    <option value="GB">United Kingdom</option>
-    <option value="US">United States</option>
-    <option value="UY">Uruguay</option>
-    <option value="UZ">Uzbekistan</option>
-    <option value="VU">Vanuatu</option>
-    <option value="VA">Vatican City</option>
-    <option value="VE">Venezuela</option>
-    <option value="VN">Vietnam</option>
-    <option value="YE">Yemen</option>
-    <option value="ZM">Zambia</option>
-    <option value="ZW">Zimbabwe</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="travelDate">Preferred Travel Date</label>
-          <input type="date" id="travelDate" name="travelDate">
-        </div>
-        <div class="form-group">
-          <label for="purpose">Purpose of Travel *</label>
-          <select id="purpose" name="purpose" required>
-            <option value="">Select purpose</option>
-            <option value="tourism">Tourism</option>
-            <option value="business">Business</option>
-            <option value="education">Education</option>
-            <option value="work">Work</option>
-            <option value="medical">Medical</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="passportNumber">Passport Number *</label>
-          <input type="text" id="passportNumber" name="passportNumber" required placeholder="A12345678">
-        </div>
+    <div class="chatbot-panel hidden" id="chatbot-panel">
+      <div class="chatbot-header">
+        <h3>Blanc Visa Assistant</h3>
+        <button id="chatbot-close">×</button>
       </div>
-  <button type="submit" class="btn btn-primary btn-full btn-large">Submit Application</button>
-</form>
-
-    <!-- Success Message -->
-    <div class="modal-success" id="successMessage" style="display: none;">
-      <div class="success-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-          <polyline points="22 4 12 14.01 9 11.01"></polyline>
-        </svg>
+      <div class="chatbot-messages" id="chatbot-messages">
+        <div class="message bot">Hi there! 👋 I'm Blanc Visa's AI assistant. Ask me anything about visas, documents, requirements, or our services!</div>
       </div>
-      <h3>Application Submitted!</h3>
-      <p>Thank you for your application. Our team will review it and contact you within 24-48 hours.</p>
-      <button class="btn btn-primary" onclick="closeModal()">Close</button>
+      
+      <!-- PERMANENT CONSULTATION BUTTON below INPUT FIELD -->
+      <div class="chatbot-whatsapp-bar">
+        <a href="#" id="consultation-book-link" class="consultation-permanent-btn" target="_blank">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 8v4l3 3M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z"/>
+          </svg>
+          Book a consultation with a visa expert
+        </a>
+      </div>
+      
+      <div class="chatbot-input-area">
+        <input type="text" id="chatbot-input" placeholder="Type your question..." autocomplete="off">
+        <button id="chatbot-send">Send</button>
+      </div>
+      <div class="chatbot-suggestions" id="chatbot-suggestions">
+        <button class="suggestion-chip">What visas do you process?</button>
+        <button class="suggestion-chip">UK visa requirements?</button>
+        <button class="suggestion-chip">I was denied before</button>
+        <button class="suggestion-chip">Do you offer consultation?</button>
+        <button class="suggestion-chip">First time traveler help</button>
+        <button class="suggestion-chip">How much does it cost?</button>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- Formspree AJAX Script -->
-<script>
-const form = document.getElementById('applicationForm');
-
-form.addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const formData = new FormData(form);
-
-  const response = await fetch(form.action, {
-    method: form.method,
-    body: formData,
-    headers: { 'Accept': 'application/json' }
-  });
-
-  if (response.ok) {
-    form.style.display = 'none';
-    document.getElementById('successMessage').style.display = 'block';
-    form.reset();
-  } else {
-    alert("Oops! There was a problem submitting your form.");
+  <style>
+  /* Additional chatbot styles */
+  .chatbot-whatsapp-bar {
+    padding: 12px 16px;
+    background: #fef3c7;
+    border-top: 1px solid #fde68a;
+    border-bottom: 1px solid #e5e7eb;
   }
-});
-</script>
+  .consultation-permanent-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #f59e0b;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.2s;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .consultation-permanent-btn:hover {
+    opacity: 0.9;
+    color: white;
+  }
+  .consultation-permanent-btn svg {
+    flex-shrink: 0;
+  }
+  </style>
 
-  <!-- Chatbot -->
-  <button class="chatbot-toggle" id="chatbotToggle" onclick="toggleChatbot()" aria-label="Open chat">
-    <svg class="chat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
-    </svg>
-    <svg class="close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
-      <line x1="18" y1="6" x2="6" y2="18"></line>
-      <line x1="6" y1="6" x2="18" y2="18"></line>
-    </svg>
-  </button>
+  <script>
+  // ===== CHATBOT KNOWLEDGE BASE - CONVERSATIONAL & HUMAN =====
+  const chatbotKnowledge = [
+    // ========== GENERAL ==========
+    {
+      keywords: ["what visas", "which visas", "visa types", "what visa", "do you process", "what do you handle", "what kind of visas", "visa services", "types of visas", "visa categories", "what can you help with"],
+      answer: "Hey! We do tourist, business, medical, temporary work, and study visas. ✈️\n\nWhat we DON'T do: permanent residency or relocation visas.\n\nNeed something specific? Feel free to ask me more questions, or click the yellow button below to book a consultation with a visa expert!"
+    },
+    // ========== UK VISA ==========
+    {
+      keywords: ["uk visa", "united kingdom", "britain", "uk application", "british visa", "uk visa requirements", "uk tourist visa", "uk business visa", "london visa", "england visa", "uk eta", "uk visa cost", "uk visa fee", "uk processing time", "uk visa documents", "documents for uk visa", "uk visa checklist", "what do i need for uk", "uk visa from nigeria"],
+      answer: "For a UK visa you'll need:\n\n✅ Passport (6+ months valid)\n✅ Passport photo\n✅ Bank statements (last 6 months)\n✅ Employment letter or CAC (if self-employed)\n✅ Where you're staying\n\n💰 Fee: $25 for 2 years\n⏱️ We guarantee a date - check the UK card above\n\nGot more questions? Keep asking me or click the yellow button below to book a consultation!"
+    },
+    {
+      keywords: ["uk renewal", "renew uk visa", "uk visa extension", "uk visa second time"],
+      answer: "Oh you've had a UK visa before? That makes things simpler! 🙌\n\nFor renewals you just need:\n✅ Copy of your old UK visa\n✅ Updated bank statements\n✅ Current passport\n\nPricing is different (better!) for renewals. Click the UK card to start or click the yellow button below to book a consultation!"
+    },
+    // ========== US VISA ==========
+    {
+      keywords: ["us visa", "united states", "america visa", "b1/b2", "usa visa", "american visa", "us tourist visa", "us business visa", "us visa requirements", "b1 visa", "b2 visa", "us visa cost", "us visa fee", "us processing time", "new york visa", "us travel", "documents for us visa", "us visa checklist", "what do i need for us visa", "ds-160", "us visa interview"],
+      answer: "US visa time! 🇺🇸 Here's what you need:\n\n✅ Passport (6+ months)\n✅ 2x2 photo on white\n✅ DS-160 form (we help with this)\n✅ Bank statements\n✅ Employment letter\n✅ Proof you'll come back (job, family, property in Nigeria)\n\n💰 Fee: $185 for 10 years\n⚠️ You'll need to attend an interview at the embassy\n\nFeeling nervous? We have interview prep as an add-on. Click the yellow button below to book a consultation and learn more!"
+    },
+    {
+      keywords: ["us visa interview", "us embassy appointment", "us visa questions", "b1/b2 interview"],
+      answer: "The US interview can be scary but we've got you! 🎤\n\nCommon questions they ask:\n• Why are you going to the US?\n• Who's paying for the trip?\n• What do you do for work?\n• Do you have family there?\n• What ties do you have to Nigeria?\n\nWe offer interview prep as an add-on - mock interview + tips + confidence building. Worth every naira!\n\nClick the yellow button below to book interview prep or a consultation!"
+    },
+    // ========== CANADA VISA ==========
+    {
+      keywords: ["canada visa", "canadian", "eta", "canada eta", "canada tourist visa", "canada business visa", "canada visitor visa", "toronto visa", "vancouver visa", "canada visa requirements", "canada visa cost", "canada processing time", "documents for canada visa", "canada visa checklist", "canada visa from nigeria"],
+      answer: "Canada! 🇨🇦 Great choice.\n\nFor a visitor visa you'll need:\n✅ Passport\n✅ Photos\n✅ Bank statements\n✅ Employment letter\n✅ Travel plans\n\n💰 eTA is $7 CAD but most Nigerians need the full visitor visa.\n\nWant the complete checklist? Click the yellow button below to book a consultation!"
+    },
+    // ========== SCHENGEN VISA ==========
+    {
+      keywords: ["schengen", "europe visa", "france", "italy", "germany", "spain", "portugal", "netherlands", "switzerland", "austria", "belgium", "greece", "denmark", "sweden", "norway", "finland", "iceland", "luxembourg", "czech republic", "hungary", "poland", "european visa", "schengen visa", "schengen area", "schengen countries", "europe trip", "paris visa", "rome visa", "barcelona visa", "schengen visa requirements", "schengen visa documents", "schengen visa checklist"],
+      answer: "Ah, Europe! Such a dream. 🌍\n\nFor Schengen you need:\n✅ Passport (3 months valid AFTER you return)\n✅ Photos\n✅ Travel insurance (€30k minimum) - we provide this!\n✅ Flight reservation (we can help)\n✅ Hotel bookings for every night (we can help)\n✅ Bank statements\n✅ Employment letter\n\n💰 Fee: $90\n\nHere's the thing - Schengen is strict about documents. Missing one thing = denial.\n\nThat's why we handle everything for you. Click the yellow button below to book a consultation and let us walk you through it!"
+    },
+    {
+      keywords: ["schengen insurance", "travel insurance schengen", "europe insurance"],
+      answer: "Yep, travel insurance is MANDATORY for Schengen. Must cover €30,000 (about ₦15 million).\n\nGood news: WE PROVIDE IT as an add-on! One less thing to worry about. Just select it in your application or click the yellow button below to book a consultation!"
+    },
+    // ========== DUBAI/UAE VISA ==========
+    {
+      keywords: ["dubai visa", "uae visa", "emirates", "dubai tourist visa", "abudhabi visa", "uae tourist visa", "dubai travel", "dubai visa cost", "dubai visa fee", "dubai requirements", "united arab emirates visa", "dubai visa documents", "dubai visa checklist"],
+      answer: "Dubai! ✨ One of our easiest visas.\n\nYou'll need:\n✅ Passport (6+ months)\n✅ Photo\n✅ Flight booking (we can book for you)\n✅ Hotel booking (we can book for you)\n✅ Bank statements\n\n💰 Fee: $45\n⏱️ Takes about 3-5 days\n\nSuper straightforward. Click the Dubai card to start or click the yellow button below to book a consultation!"
+    },
+    // ========== TURKEY VISA ==========
+    {
+      keywords: ["turkey visa", "turkish", "turkey evisa", "istanbul visa", "turkey tourist visa", "turkey visa requirements", "turkey visa cost", "turkey visa fee", "turkey online visa", "turkey visa documents", "turkey visa checklist"],
+      answer: "Turkey! 🇹🇷 Great choice - their e-Visa is super easy.\n\nWhat you need:\n✅ Passport (6+ months)\n✅ Photo\n✅ Email address (they send the visa there)\n✅ Where you're staying\n✅ Return flight (we can book)\n\n💰 Fee: $60\n⏱️ Valid for 90 days\n\nNo embassy visit needed - all online! Click the Turkey card to get started!"
+    },
+    // ========== DOCUMENTS ==========
+    {
+      keywords: ["passport", "passport validity", "passport requirements", "international passport", "passport number", "passport expiry", "valid passport", "expired passport", "passport photo", "passport photograph"],
+      answer: "Quick passport rules:\n\n✅ Must be valid for at least 6 months after your planned return date\n✅ Need at least 2 blank pages\n✅ No damage or tears\n\n📸 Photo: White background, no glasses, recent (within 6 months)\n\nNot sure if your passport works? Click the yellow button below to book a consultation and we'll check for you!"
+    },
+    {
+      keywords: ["bank statement", "proof of funds", "financial proof", "income proof", "bank balance", "savings", "financial requirements", "how much money", "show money", "bank letter"],
+      answer: "Ah, the money question! 💰\n\nEmbassies want to see you can afford your trip. Generally:\n• Last 3-6 months of statements\n• Regular salary deposits\n• Enough balance for flights + hotels + spending\n\nFor most countries: ₦1.5M - ₦5M depending on destination and length.\n\nBusiness owners: provide business + personal statements.\n\nSponsored? We'll need sponsor's statements too.\n\nWant to know exactly how much YOU need? Click the yellow button below to book a consultation!"
+    },
+    {
+      keywords: ["employment letter", "job letter", "work letter", "employer letter", "letter from work", "proof of employment", "employment verification"],
+      answer: "Employment letter should say:\n✅ Your job title\n✅ How long you've worked there\n✅ Your salary\n✅ When you're taking leave\n✅ That they expect you back\n\nMust be on company letterhead with stamp and signature.\n\nSelf-employed? We need your CAC documents.\nStudent? School letter + ID + parent sponsorship.\n\nNeed a template? Click the yellow button below and we'll send one!"
+    },
+    {
+      keywords: ["invitation letter", "invitation", "host", "sponsor letter", "invite letter", "letter of invitation", "host letter", "sponsorship letter", "company invitation"],
+      answer: "Invitation letter? We can write one for you! ✍️\n\nFor business: needs company letterhead, why they're inviting you, who pays, how long.\n\nFor friends/family: needs host's passport copy, their address, and relationship to you.\n\nSelect this as an add-on in your application or click the yellow button below to book a consultation!"
+    },
+    {
+      keywords: ["travel itinerary", "itinerary", "day by day", "trip plan", "daily schedule"],
+      answer: "Itinerary = your day-by-day plan. Embassies love this!\n\nShows:\n• What you'll do each day\n• Where you'll sleep each night\n• How you'll move between cities\n\nWe create professional itineraries as part of our service. One less thing for you to stress about! 😊"
+    },
+    {
+      keywords: ["flight booking", "flight reservation", "dummy ticket", "flight hold", "refundable ticket"],
+      answer: "Here's a pro tip: Don't buy actual tickets before visa approval! 🙅\n\nEmbassies accept a flight RESERVATION (hold) that shows:\n✅ Your dates\n✅ Your route\n✅ Return ticket\n\nWe provide flight reservations as an add-on. Once your visa is approved, THEN you buy the real ticket.\n\nSaves you from losing money if visa is delayed or denied. Smart, right? 😉"
+    },
+    {
+      keywords: ["hotel booking", "accommodation", "place to stay", "hotel reservation"],
+      answer: "You need confirmed accommodation for every night of your trip.\n\nHotel booking should show:\n✅ Hotel name and address\n✅ Check-in and check-out dates\n✅ Your name on the reservation\n\nWe provide hotel reservations as an add-on - refundable options when possible.\n\nLet us handle this!"
+    },
+    // ========== VISA HISTORY ==========
+    {
+      keywords: ["denied", "refusal", "rejection", "refused", "was denied", "got denied", "visa denied", "application denied", "denied before", "previous denial", "refused visa", "rejected visa", "refusal reason", "uk visa denied", "us visa denied", "schengen denied"],
+      answer: "First, take a deep breath. 🙏 A denial isn't the end.\n\nWe've helped MANY people get approved after being denied.\n\nBut here's the honest truth: To give you the best chance, we need to understand WHY you were denied. Different reasons need different strategies.\n\n💡 That's why we STRONGLY recommend booking a consultation first. In 20 minutes we'll:\n• Review exactly what went wrong\n• Tell you if you can reapply now or need to wait\n• Give you a checklist tailored to YOUR situation\n\nIt could save you from another denial (and another fee).\n\n**Click the yellow button below to book a consultation** - just say 'I was denied and need help'!"
+    },
+    {
+      keywords: ["first time", "first-time", "never traveled", "beginner", "new traveler", "no travel history", "first trip", "first visa", "never applied", "first time applicant", "no experience", "rookie", "first time flyer"],
+      answer: "First time traveling abroad? Welcome! 🎉 We specialize in helping beginners.\n\nHere's what you should know:\n\nEmbassies want to see that you'll COME BACK. That means proving you have a job, family, or property in Nigeria.\n\n💡 Pro tip: Start with an 'easier' country like Turkey or Dubai to build travel history. Then go for UK, US, or Schengen.\n\nWe have a consultation option where we walk you through EVERYTHING - documents, bank requirements, what to expect. No judgment, just honest help.\n\n**Click the yellow button below to book a consultation** - tell us where you want to go!"
+    },
+    {
+      keywords: ["renewal", "renew", "already had", "previous visa", "had before", "renew visa", "visa renewal", "extend visa", "renewing", "renewal application", "second time", "previous approval", "already traveled", "been before"],
+      answer: "Oh nice! You've traveled before? That makes things easier. 🙌\n\nIf you've had a US, UK, Canada, Australia, or Schengen visa that expired within the last 5 years:\n\n✅ Fewer documents needed\n✅ Lower service fee\n✅ Faster processing\n✅ Higher chance of approval\n\nJust send us a copy of your old visa and we'll handle the rest.\n\n**Click the yellow button below to book a consultation** - send us a photo of your old visa and we'll tell you your price!"
+    },
+    {
+      keywords: ["overstayed", "overstay", "deported", "immigration issue", "banned", "overstayed visa", "visa overstay", "removal", "deportation", "entry ban", "immigration violation", "overstayed before", "stayed beyond", "expired visa while there"],
+      answer: "I need to be honest with you. 🤝\n\nOverstaying a visa or being deported is serious. It can result in:\n❌ Entry bans for 1-10 years\n❌ Automatic rejections\n❌ Permanent record\n\nHere's what we need to do: Book a consultation FIRST. Not because we want your money, but because applying again without addressing the issue could make things worse.\n\nIn the consultation we'll:\n• Review exactly what happened\n• Check if you have any active bans\n• Tell you honestly if/when you can reapply\n• Give you a strategy\n\n**Click the yellow button below to book a consultation** - say 'I overstayed before' and we'll respond!"
+    },
+    // ========== PRICING & CONSULTATION ==========
+    {
+      keywords: ["price", "cost", "fee", "how much", "charge", "pricing", "rates", "service fee", "visa fee", "whats the price", "how much does it cost", "expensive", "affordable", "payment", "pay", "total cost"],
+      answer: "Great question! Here's how pricing works:\n\n💰 GOVERNMENT FEE (goes to embassy):\n• UK: $25\n• US: $185\n• Canada: $7 CAD\n• Schengen: $90\n• Dubai: $45\n• Turkey: $60\n\n💰 OUR SERVICE FEE (what we charge):\n• Varies based on if you're first-time or renewal\n• Your travel history matters too\n• We show you the TOTAL before you submit anything\n\nWant an exact quote? **Click the yellow button below to book a consultation** - tell us which country and if you've traveled before!"
+    },
+    {
+      keywords: ["consultation", "consultant", "speak to someone", "book a call", "advice", "talk to agent", "human help", "expert advice", "professional help", "guidance", "recommendation", "should i consult", "need help", "expert opinion", "professional review"],
+      answer: "Here's when a consultation makes sense:\n\n✅ You've been denied a visa before\n✅ You overstayed anywhere\n✅ You're a first-time traveler (especially for US/UK)\n✅ You want expert eyes on your situation before paying full fees\n\nIn 20-30 minutes we'll:\n• Assess your chances honestly\n• Give you a custom document checklist\n• Tell you exactly how much you need in your account\n• Answer EVERY question you have\n\n💡 The consultation fee goes toward your service fee if you proceed with us.\n\n**Click the yellow button below to book a consultation** - we'll get you scheduled!"
+    },
+    // ========== ADD-ONS ==========
+    {
+      keywords: ["add-on", "extra services", "additional services", "what else do you offer", "other services", "premium services", "flight booking", "hotel booking", "travel insurance", "interview prep", "interview preparation", "visa interview coaching", "cover letter", "itinerary"],
+      answer: "We've got your back with these extras:\n\n✈️ Flight booking - real tickets or reservations\n🏨 Hotel booking - confirmed stays\n📄 Travel insurance - mandatory for Schengen\n🎤 Interview prep - mock interviews + tips\n📝 Cover letter - professionally written\n🗺️ Itinerary - day-by-day plan\n\nJust select what you need in the application form. Or click the yellow button below to book a consultation!"
+    },
+    {
+      keywords: ["interview prep", "mock interview", "visa interview", "embassy interview", "interview coaching", "interview practice", "us interview", "uk interview"],
+      answer: "Nervous about the embassy interview? We get it. 😰\n\nOur interview prep includes:\n✅ Mock interview (we play the visa officer)\n✅ Common questions + how to answer\n✅ What NOT to say (super important!)\n✅ Document organization tips\n\nIt's usually the difference between approval and denial. Worth every kobo.\n\n**Click the yellow button below to book interview prep or a consultation!**"
+    },
+    // ========== PROCESS ==========
+    {
+      keywords: ["how to start", "get started", "begin application", "apply now", "start process", "how to apply", "application process", "steps", "process flow", "how does it work", "what is the process"],
+      answer: "Super simple:\n\n1️⃣ Pick a country card above\n2️⃣ Fill out the form (takes 5-7 min)\n3️⃣ See your price\n4️⃣ Choose: proceed or book consultation\n5️⃣ Pay if proceeding\n6️⃣ We prepare everything\n7️⃣ We submit to embassy\n8️⃣ You get your visa 🎉\n\nThat's it. We handle the hard parts.\n\n**Start now by clicking a country card above!**"
+    },
+    {
+      keywords: ["how long", "processing time", "wait time", "guaranteed date", "how many days", "timeline", "duration", "when will i get", "processing duration", "turnaround time", "visa processing", "fastest visa"],
+      answer: "Every country card shows a GUARANTEED date. We commit to it.\n\nTypical timelines:\n• Dubai/Turkey: 3-7 days\n• UK: 10-15 days\n• Schengen: 10-15 days\n• Canada: 10-20 days\n• US: 15-25 days (interviews take time)\n\nIf we're late? You get a refund or free expedited processing.\n\nNeed it faster? Some countries have rush options. Click the yellow button below to ask!"
+    },
+    {
+      keywords: ["guarantee", "on time", "guaranteed", "money back", "refund", "on time guarantee", "visa guarantee", "satisfaction guarantee", "what if late"],
+      answer: "Simple promise: Visas On Time, Guaranteed. ✅\n\nIf we miss the date shown on the country card:\n• FULL refund of our service fee, OR\n• Expedited processing at no cost\n\nGovernment visa fees (paid to embassy) aren't refundable - that's standard everywhere.\n\nWe're confident because we've done this hundreds of times."
+    },
+    // ========== CONTACT ==========
+    {
+      keywords: ["contact", "reach you", "customer service", "support", "help", "talk to human", "speak to agent", "live person", "phone number", "email address", "how to reach"],
+      answer: "Best way to reach us: **Click the yellow button below to book a consultation!** 👆\n\nWe reply within 2 hours on business days (Monday-Friday, 9am-6pm WAT).\n\nYou can also email: support@blancvisa.com (slower response).\n\nWe're real people in Lagos, ready to help!"
+    },
+    // ========== ELIGIBILITY ==========
+    {
+      keywords: ["who can apply", "eligible", "qualification", "requirements to apply", "am i eligible", "can i apply", "nationality", "nigerian", "ghana", "kenya", "south africa", "from nigeria"],
+      answer: "We help anyone with a valid passport apply for temporary visas.\n\nMost of our clients are Nigerian, but we've helped people in the US, Kenya, Spain, and UK too.\n\nAs long as you're not applying for permanent residency, we can probably help.\n\n**Click the yellow button below to book a consultation** - tell us your nationality and destination!"
+    },
+    // ========== BUSINESS & GROUPS ==========
+    {
+      keywords: ["business visa", "business trip", "work visa", "temporary work", "business travel", "corporate visa", "work permit", "employment visa", "business purpose", "company trip", "conference visa", "meeting visa"],
+      answer: "Yes, we do business visas!\n\nWe'll ask:\n• Do you have an invitation from a company?\n• Who's paying? (you/company/host)\n• What's the purpose? (meeting, conference, training)\n\nExtra docs needed:\n• Invitation letter (we can write this for you)\n• Company intro letter\n• Business registration if self-employed\n\n**Click the yellow button below to book a consultation** - tell us your business trip details!"
+    },
+    {
+      keywords: ["group", "family", "multiple people", "group visa", "family application", "apply together", "family trip", "couple visa", "husband wife", "group discount"],
+      answer: "Traveling with family or friends? We can handle groups! 👨‍👩‍👧‍👦\n\nJust select 'A Group' in the form. Each person needs their own documents (passports, photos, etc.) but we keep everything organized.\n\n💡 Group discount available for 5+ people.\n\n**Click the yellow button below to book a consultation** - tell us how many people and where you're going!"
+    },
+    {
+      keywords: ["someone else", "on behalf", "representative", "third party", "apply for friend", "apply for relative", "assisting someone"],
+      answer: "Yes! You can apply for a friend, family member, or anyone with their permission.\n\nJust select 'Someone Else' in the form. You'll need their documents and personal info.\n\n⚠️ They may still need to attend biometrics/interviews in person depending on the country.\n\n**Click the yellow button below to book a consultation** - we'll guide you through it!"
+    },
+    // ========== MEDICAL & STUDY ==========
+    {
+      keywords: ["medical visa", "medical treatment", "healthcare", "hospital visa", "treatment visa", "medical trip", "health visa", "surgery visa", "medical appointment"],
+      answer: "Medical visas - yes we do them, especially for Turkey (hair transplants, dental, surgery) and UK.\n\nYou'll need:\n✅ Letter from the hospital/clinic abroad\n✅ Your medical records\n✅ Treatment plan and cost\n✅ Proof you can pay\n\n**Click the yellow button below to book a consultation** - tell us your medical travel plans!"
+    },
+    {
+      keywords: ["study visa", "study abroad", "student", "study visa", "education visa", "university visa", "college visa", "study permit", "student application", "student visa requirements"],
+      answer: "Short-term study visas? Yes (language courses, summer school, workshops).\n\nFull degree programs? We don't handle those (but can refer you).\n\nYou'll need:\n✅ Acceptance letter from the school\n✅ Proof you paid tuition\n✅ Bank statements for living expenses\n\n**Click the yellow button below to book a consultation** - tell us your study plans!"
+    }
+  ];
 
-  <div class="chatbot" id="chatbot">
-    <div class="chatbot-header">
-      <div class="chatbot-avatar">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3z"></path>
-        </svg>
-      </div>
-      <div>
-        <h4 class="chatbot-title">BLANC AI Assistant</h4>
-        <p class="chatbot-status">Online • Typically replies instantly</p>
-      </div>
-    </div>
-    <div class="chatbot-messages" id="chatbotMessages">
-      <div class="chat-message bot">
-        <p>Hi! I’m Blanc AI. Your Visa Assistant 🤖
+  // Consultation link configuration - REPLACE WITH YOUR ACTUAL CALENDLY OR BOOKING LINK
+  const CONSULTATION_LINK = "https://calendly.com/your-username/visa-consultation"; // 🔴 CHANGE THIS TO YOUR ACTUAL BOOKING LINK
 
-          Please type in one of the options below by typing it exactly as shown:
+  // Set up consultation link
+  function setupConsultationLink() {
+    var consultationLink = document.getElementById('consultation-book-link');
+    if (consultationLink) {
+      consultationLink.href = CONSULTATION_LINK;
+    }
+  }
 
-          1️⃣ Visa types
-          2️⃣ Processing times
-          3️⃣ Required documents
-          4️⃣ Your services
+  // Function to find answer
+  function findAnswer(question) {
+    var lowerQuestion = question.toLowerCase();
+    var bestMatch = null;
+    var bestScore = 0;
+    
+    for (var i = 0; i < chatbotKnowledge.length; i++) {
+      var rule = chatbotKnowledge[i];
+      var score = 0;
+      for (var j = 0; j < rule.keywords.length; j++) {
+        var keyword = rule.keywords[j];
+        if (lowerQuestion.indexOf(keyword.toLowerCase()) !== -1) {
+          score += keyword.length;
+        }
+      }
+      if (score > bestScore && score > 0) {
+        bestScore = score;
+        bestMatch = rule;
+      }
+    }
+    
+    if (bestMatch && bestScore > 2) {
+      return bestMatch.answer;
+    } else {
+      // Friendly fallback - suggest prefilled questions or consultation
+      return "Try clicking one of the suggestion chips below (like \"UK visa requirements?\" or \"I was denied before\") \n\nor click the yellow button below to book a consultation with a visa expert. 👆";
+    }
+  }
 
-          This helps me give you accurate information faster.
-        </p>
-      </div>
-    </div>
-    <div class="chatbot-whatsapp">
-      <a href="https://wa.me/2341234567890?text=Hi!%20I%20need%20help%20with%20my%20visa%20application." target="_blank" class="btn btn-whatsapp btn-full">
-        <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-        </svg>
-        Chat on WhatsApp
-      </a>
-    </div>
-    <div class="chatbot-input">
-      <input type="text" id="chatInput" placeholder="Type your message..." onkeydown="handleChatKeydown(event)">
-      <button class="chat-send-btn" onclick="sendChatMessage()" aria-label="Send message">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="22" y1="2" x2="11" y2="13"></line>
-          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-        </svg>
-      </button>
-    </div>
-  </div>
+  // Chatbot UI logic
+  document.addEventListener('DOMContentLoaded', function() {
+    // Set up consultation link
+    setupConsultationLink();
+    
+    var toggle = document.getElementById('chatbot-toggle');
+    var panel = document.getElementById('chatbot-panel');
+    var closeBtn = document.getElementById('chatbot-close');
+    var input = document.getElementById('chatbot-input');
+    var sendBtn = document.getElementById('chatbot-send');
+    var messagesContainer = document.getElementById('chatbot-messages');
+    var suggestionsContainer = document.getElementById('chatbot-suggestions');
+    
+    // Function to add message
+    function addMessage(text, isUser) {
+      var messageDiv = document.createElement('div');
+      messageDiv.className = 'message ' + (isUser ? 'user' : 'bot');
+      if (!isUser) {
+        messageDiv.innerHTML = text.replace(/\n/g, '<br>');
+      } else {
+        messageDiv.textContent = text;
+      }
+      messagesContainer.appendChild(messageDiv);
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+    
+    function processUserMessage(question) {
+      addMessage(question, true);
+      var result = findAnswer(question);
+      setTimeout(function() {
+        addMessage(result, false);
+      }, 300);
+      input.value = '';
+    }
+    
+    sendBtn.addEventListener('click', function() {
+      var question = input.value.trim();
+      if (question === '') return;
+      processUserMessage(question);
+    });
+    
+    input.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        var question = input.value.trim();
+        if (question === '') return;
+        processUserMessage(question);
+      }
+    });
+    
+    toggle.addEventListener('click', function() {
+      panel.classList.toggle('hidden');
+    });
+    
+    closeBtn.addEventListener('click', function() {
+      panel.classList.add('hidden');
+    });
+    
+    // Handle suggestion chips
+    suggestionsContainer.addEventListener('click', function(e) {
+      if (e.target.classList.contains('suggestion-chip')) {
+        var question = e.target.textContent;
+        processUserMessage(question);
+      }
+    });
+    
+    // Close panel when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!panel.contains(e.target) && !toggle.contains(e.target) && !panel.classList.contains('hidden')) {
+        panel.classList.add('hidden');
+      }
+    });
+  });
+  </script>
 
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
