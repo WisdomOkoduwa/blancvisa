@@ -1,12 +1,12 @@
 /* ===== DATA ===== */
 // Updated visa countries: UK, US, Canada, Schengen Area, Dubai, Turkey
 const visaCountries = [
-  { name:"United Kingdom", code:"GB", type:"Tourist", validity:"2 Years", fees:"$100", documents:"Photo, Passport", guaranteedDate:"31 Mar 2026, 8:32 PM" },
-  { name:"United States", code:"US", type:"Tourist", validity:"10 Years", fees:"$200", documents:"Photo, Passport, DS-160", guaranteedDate:"15 Apr 2026, 10:00 AM" },
-  { name:"Canada", code:"CA", type:"Tourist", validity:"5 Years", fees:"$300 CAD", documents:"Passport, Email", guaranteedDate:"10 Apr 2026, 2:30 PM" },
-  { name:"Schengen Area", code:"EU", type:"Tourist", validity:"90 Days", fees:"$400", documents:"Travel Itinerary, Insurance, Passport", guaranteedDate:"20 Apr 2026, 9:15 AM" },
-  { name:"Dubai (UAE)", code:"AE", type:"Tourist", validity:"30 Days", fees:"$500", documents:"Passport, Photo", guaranteedDate:"5 Apr 2026, 11:45 AM" },
-  { name:"Turkey", code:"TR", type:"Tourist", validity:"90 Days", fees:"$600", documents:"Passport", guaranteedDate:"8 Apr 2026, 3:20 PM" }
+  { name:"United Kingdom", code:"GB", type:"Tourist", validity:"2 Years", documents:"Photo, Passport", guaranteedDate:"31 Mar 2026, 8:32 PM" },
+  { name:"United States", code:"US", type:"Tourist", validity:"10 Years", documents:"Photo, Passport, DS-160", guaranteedDate:"15 Apr 2026, 10:00 AM" },
+  { name:"Canada", code:"CA", type:"Tourist", validity:"5 Years", documents:"Passport, Email", guaranteedDate:"10 Apr 2026, 2:30 PM" },
+  { name:"Schengen Area", code:"EU", type:"Tourist", validity:"90 Days", documents:"Travel Itinerary, Insurance, Passport", guaranteedDate:"20 Apr 2026, 9:15 AM" },
+  { name:"Dubai (UAE)", code:"AE", type:"Tourist", validity:"30 Days", documents:"Passport, Photo", guaranteedDate:"5 Apr 2026, 11:45 AM" },
+  { name:"Turkey", code:"TR", type:"Tourist", validity:"90 Days", documents:"Passport", guaranteedDate:"8 Apr 2026, 3:20 PM" }
 ];
 
 // Local image paths - create these folders in your project
@@ -116,7 +116,6 @@ function renderVisaCards() {
           <div class="card-meta">
             <div><span class="label">Type</span><span class="val">${c.type}</span></div>
             <div><span class="label">Valid</span><span class="val">${c.validity}</span></div>
-            <div><span class="label">Fees</span><span class="val">${c.fees}</span></div>
           </div>
         </div>
       </div>
